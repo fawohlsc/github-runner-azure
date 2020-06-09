@@ -1,3 +1,3 @@
 #!/bin/bash
 
-touch foo
+touch /home/gha-self-hosted-runner/foo
