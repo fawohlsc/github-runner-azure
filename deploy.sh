@@ -6,6 +6,7 @@ PROJECT_NAME="gha-self-hosted-runner"
 RESOURCE_GROUP_NAME="$PROJECT_NAME-rg"
 VM_NAME="$PROJECT_NAME-vm"
 VM_EXTENSION_NAME="$VM_NAME-ext"
+PUBLISHER="Microsoft.Azure.Extensions"
 IMAGE="UbuntuLTS"
 LOCATION="WestEurope"
 ADMIN_USERNAME=$PROJECT_NAME
@@ -21,11 +22,19 @@ az vm create \
   --admin-username $ADMIN_USERNAME \
   --generate-ssh-keys
 
-# VM Extension
 az vm extension set \
---resource-group $RESOURCE_GROUP_NAME \
---vm-name $VM_NAME \
---name $VM_EXTENSION_NAME \
---publisher Microsoft.Azure.Extensions \
---force-update \
---protected-settings '{"fileUris": ["https://raw.githubusercontent.com/fawohlsc/gha-self-hosted-runner/master/extension.sh"],"commandToExecute": "./extension.sh"}'
+  --resource-group $RESOURCE_GROUP_NAME \
+  --vm-name $VM_NAME \
+  --name customScript \
+  --publisher Microsoft.Azure.Extensions \
+  --force-update \
+  --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/fawohlsc/gha-self-hosted-runner/master/extension.sh"],"commandToExecute": "./extension.sh"}'
+
+# VM Extension
+#az vm extension set \
+#--resource-group $RESOURCE_GROUP_NAME \
+#--vm-name $VM_NAME \
+#--name $VM_EXTENSION_NAME \
+#--publisher $PUBLISHER \
+#--force-update \
+#--protected-settings '{"fileUris": ["https://raw.githubusercontent.com/fawohlsc/gha-self-hosted-runner/master/extension.sh"],"commandToExecute": "./extension.sh"}'
