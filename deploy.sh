@@ -23,9 +23,9 @@ az vm create \
 
 # VM Extension
 az vm extension set \
---name $VM_EXTENSION_NAME
 --resource-group $RESOURCE_GROUP_NAME \
---vm-name $VM_NAME 
---name customScript \
+--vm-name $VM_NAME \
+--name $VM_EXTENSION_NAME \
 --publisher Microsoft.Azure.Extensions \
+--force-update \
 --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/fawohlsc/gha-self-hosted-runner/master/extension.sh"],"commandToExecute": "./extension.sh"}'
