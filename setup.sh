@@ -10,7 +10,7 @@
 githubToken=$1
 
 # Variables
-projectName="gha-self-hosted-runner1337"
+projectName="gha-self-hosted-runner1"
 location="WestEurope"
 rgName="$projectName-rg"
 vmName="$projectName-vm"
