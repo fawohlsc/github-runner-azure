@@ -13,13 +13,9 @@ jobs:
         with:
           route: POST /orgs/:org/actions/runners/registration-token
           repository: ${{ github.repository }}
-          mediaType: | # The | is significant!
-            previews: 
-              - antiope
-          registration_token: ${{ steps.get_registration_token.outputs.data }}    
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: "echo latest release: ${{ registration_token }}"
+      - run: "echo latest release: ${{ steps.get_registration_token.outputs.data }}"
   build:
     runs-on: ubuntu-latest
 
