@@ -7,20 +7,20 @@
 # - Good example: https://github.com/paolosalvatori/front-door-apim/blob/master/scripts/deploy.sh
 
 # Parameters
-runAsUser=$1
-githubToken=$2
+githubToken=$1
 
 # Variables
-projectName="gha-self-hosted-runner2"
+projectName="gha-self-hosted-runner1337"
+location="WestEurope"
 rgName="$projectName-rg"
 vmName="$projectName-vm"
+image="UbuntuLTS"
+adminUserName=$projectName
 vmExtensionName="customScript"
 vmExtensionFileUri="https://raw.githubusercontent.com/fawohlsc/gha-self-hosted-runner/master/extension.sh"
-vmExtensionCommandToExecute="./extension.sh $runAsUser $githubToken"
+vmExtensionCommandToExecute="./extension.sh $adminUserName $githubToken"
 publisher="Microsoft.Azure.Extensions"
-image="UbuntuLTS"
-location="WestEurope"
-adminUserName=$projectName
+
 
 # SubscriptionId of the current subscription
 subscriptionId=$(az account show --query id --output tsv)

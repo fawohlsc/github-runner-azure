@@ -33,6 +33,7 @@ sudo -u $runAsUser -s ./config.sh --url https://github.com/fawohlsc/gha-self-hos
 
 # Install GitHub Actions self hosted runner as a service
 echo "Installing GitHub Actions self hosted runner as a service..."
-./svc.sh install
-./svc.sh start
-./svc.sh status
+echo "whoami: $(whoami)"
+sudo ./svc.sh install
+sudo ./svc.sh start
+sudo ./svc.sh status
