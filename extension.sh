@@ -12,6 +12,6 @@ echo "Configuring GitHub Actions self hosted runner..."
 ./config.sh --unattended --name $GITHUB_RUNNER_NAME --labels $GITHUB_RUNNER_LABEL --url https://github.com/fawohlsc/gha-self-hosted-runner --token $GITHUB_TOKEN
 
 echo "Installing GitHub Actions self hosted runner as a service..."
-sudo ./svc.sh install
-sudo ./svc.sh start
-sudo ./svc.sh status
+./svc.sh install
+./svc.sh start
+./svc.sh status
