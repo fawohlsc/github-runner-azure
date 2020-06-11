@@ -14,7 +14,8 @@ jobs:
           route: POST /orgs/:org/actions/runners/registration-token
           repository: ${{ github.repository }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: "echo latest release: ${{ steps.get_registration_token.outputs.data }}"
   build:
     runs-on: ubuntu-latest
