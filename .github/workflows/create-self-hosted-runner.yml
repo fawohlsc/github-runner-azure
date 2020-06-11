@@ -5,6 +5,21 @@ on:
     branches: [ master ]
 
 jobs:
+  logLatestRelease:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: octokit/request-action@v2.x
+        id: get_registration_token
+        with:
+          route: POST /orgs/:org/actions/runners/registration-token
+          repository: ${{ github.repository }}
+          mediaType: | # The | is significant!
+            previews: 
+              - antiope
+          registration_token: ${{ steps.get_registration_token.outputs.data }}    
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: "echo latest release: ${{ registration_token }}"
   build:
     runs-on: ubuntu-latest
 
