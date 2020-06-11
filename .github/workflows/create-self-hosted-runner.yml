@@ -11,11 +11,11 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_registration_token
         with:
-          route: POST /orgs/:org/actions/runners/registration-token
+          route: POST /repos/fawohlsc/gha-self-hosted-runner/actions/runners/registration-token
           #repository: ${{ github.repository }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          #GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: "echo latest release: ${{ steps.get_registration_token.outputs.data }}"
   build:
     runs-on: ubuntu-latest
