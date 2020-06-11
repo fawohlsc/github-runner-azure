@@ -1,17 +1,22 @@
-  
+ 
 #!/bin/bash
-# Suggested improvements:
+# TODO:
 # - Proper error handling 
 # - Refactoring into bash functions 
-# Good example: https://github.com/paolosalvatori/front-door-apim/blob/master/scripts/deploy.sh
+# - Access variables with ${<NAME>} 
+# - Good example: https://github.com/paolosalvatori/front-door-apim/blob/master/scripts/deploy.sh
+
+# Parameters
+runAsUser=$1
+githubToken=$2
 
 # Variables
-projectName="gha-self-hosted-runner"
+projectName="gha-self-hosted-runner2"
 rgName="$projectName-rg"
 vmName="$projectName-vm"
 vmExtensionName="customScript"
 vmExtensionFileUri="https://raw.githubusercontent.com/fawohlsc/gha-self-hosted-runner/master/extension.sh"
-vmExtensionCommandToExecute="./extension.sh"
+vmExtensionCommandToExecute="./extension.sh $runAsUser $githubToken"
 publisher="Microsoft.Azure.Extensions"
 image="UbuntuLTS"
 location="WestEurope"
@@ -46,14 +51,6 @@ fi
 printf "\n"
 
 # VM Extension
-echo "Checking if VM extension [$vmExtensionName] exists in VM [$vmName]..."
-if az vm extension show --resource-group $rgName --vm-name $vmName --name $vmExtensionName 2>/dev/null; then
-  echo "Found VM extension [$vmExtensionName] in VM [$vmName]."
-
-  echo "Deleting VM extension [$vmExtensionName] in VM [$vmName]..."
-  az vm extension delete --resource-group $rgName --vm-name $vmName --name $vmExtensionName
-fi
-
 echo "Installing VM extension [$vmExtensionName] in VM [$vmName]..."
 az vm extension set \
   --resource-group $rgName \
