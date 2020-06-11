@@ -11,8 +11,11 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_registration_token
         with:
-          route: POST /repos/fawohlsc/gha-self-hosted-runner/actions/runners/registration-token
-          #repository: ${{ github.repository }}
+          route: POST /repos/:owner/:repo/actions/runners/registration-token
+          repository: ${{ github.repository }}
+          mediaType: | # The | is significant!
+            previews: 
+              - antiope
         env:
           #GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
