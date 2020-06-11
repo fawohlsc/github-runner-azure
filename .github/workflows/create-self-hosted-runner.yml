@@ -12,7 +12,7 @@ jobs:
         id: get_registration_token
         with:
           route: POST /orgs/:org/actions/runners/registration-token
-          repository: ${{ github.repository }}
+          #repository: ${{ github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
           #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
