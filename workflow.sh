@@ -3,26 +3,27 @@
 # TODO: Use image from container registry
 # TODO: Convert to GitHub Actions
 # TODO: Validate GitHub runner
-# TODO: Delete resource group
-# TODO: Remove runner after execution
 
 set -e -u # Exit script on error and treat unset variables as an error
 
 ACCESS_TOKEN=${1} # GitHub access token
 
 BLUE='\033[0;34m'
+RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
-BASE_NAME="github-runner-azure-3"
+UNIX_TIME=$(eval "date +%s") # Seconds
+RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
+BASE_NAME="github-runner-azure"
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 RG_NAME=${BASE_NAME}
 LOCATION="WestEurope"
-ACR_NAME=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13) # Random string
+ACR_NAME=${RANDOM_STRING}
 ACR_SKU="Basic"
 ACR_URL="${ACR_NAME}.azurecr.io"
 RUNNER_IMAGE_SOURCE="docker.io/myoung34/github-runner:latest"
 RUNNER_IMAGE="github-runner"
-RUNNER_IMAGE_TAG=$(eval "date +%s") # Unix time in s
+RUNNER_IMAGE_TAG=${UNIX_TIME}
 VM_NAME=${BASE_NAME}
 VM_IMAGE="UbuntuLTS"
 VM_ADMIN=${BASE_NAME}
@@ -39,10 +40,15 @@ VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${RUNNER_NAME}
 
 echo -e "${BLUE}Executing workflow...${NC}"
 
+if az group show --name ${RG_NAME} 2>/dev/null; then
+  echo -e "${RED}Resource group [${RG_NAME}] in subscription [${SUBSCRIPTION_ID}] already exists. Exiting...${NC}"
+  exit 1
+fi
+
 echo -e "${GREEN}Creating resource group [${RG_NAME}] in subscription [${SUBSCRIPTION_ID}]...${NC}"
 az group create --location ${LOCATION} --name ${RG_NAME}
 
-echo -e "${GREEN}Creating container registry [${ACR_NAME} in resource group [${RG_NAME}]]...${NC}"
+echo -e "${GREEN}Creating container registry [${ACR_NAME}] in resource group [${RG_NAME}]...${NC}"
 az acr create --resource-group ${RG_NAME} --name ${ACR_NAME} --sku ${ACR_SKU}
 
 echo -e "${GREEN}Importing runner image [${RUNNER_IMAGE}] into container registry [${ACR_NAME}]...${NC}"
@@ -58,6 +64,27 @@ az vm create \
   --image ${VM_IMAGE} \
   --admin-username $VM_ADMIN \
   --generate-ssh-keys
+
+echo -e "${GREEN}Configuring VM [${VM_NAME}] with system-managed identity...${NC}"
+az vm identity assign \
+ --resource-group ${RG_NAME} \
+ --name ${VM_NAME} 
+VM_PRINCIPAL_ID=$(az vm show  \
+  --resource-group ${RG_NAME}  \
+  --name ${VM_NAME} \
+  --query identity.principalId \
+  --out tsv)
+
+echo -e "${GREEN}Granting system-managed identity [${VM_PRINCIPAL_ID}] access to container registry [${ACR_NAME}]...${NC}"
+ACR_ID=$(az acr show  \
+  --resource-group ${RG_NAME} \
+  --name ${ACR_NAME} \
+  --query id \
+  --output tsv)
+az role assignment create   \
+  --assignee ${VM_PRINCIPAL_ID}   \
+  --scope ${ACR_ID}   \
+  --role acrpull
 
 echo -e "${GREEN}Installing VM extension [${VM_EXT_NAME}] in VM [${VM_NAME}]...${NC}"
 az vm extension set \

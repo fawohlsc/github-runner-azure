@@ -8,8 +8,7 @@ NC='\033[0m' # No Color
 
 echo -e "${BLUE}Installing docker...${NC}"
 
-echo -e "${GREEN}Uninstalling previous versions of docker engine and containerd if any...${NC}"
-#dpkg --remove docker-ce docker-ce-cli containerd.io # dpkg does not fail on errors unlike apt-get remove
+# TODO: Uninstalling previous versions of docker engine and containerd if any
 
 echo -e "${GREEN}Updating the apt package index...${NC}"
 apt-get update
