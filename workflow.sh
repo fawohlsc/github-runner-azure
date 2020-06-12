@@ -24,6 +24,10 @@ ACR_URL="${ACR_NAME}.azurecr.io"
 RUNNER_IMAGE_SOURCE="docker.io/myoung34/github-runner:latest"
 RUNNER_IMAGE="github-runner"
 RUNNER_IMAGE_TAG=${UNIX_TIME}
+# TODO: Do not run GitHub runner under VM Admin
+RUNNER_USER=${VM_ADMIN}
+REPO_URL="https://github.com/fawohlsc/github-runner-azure"
+LABELS="Azure"
 VM_NAME="${BASE_NAME}VM"
 VM_IMAGE="UbuntuLTS"
 VM_ADMIN=${BASE_NAME}
@@ -31,12 +35,8 @@ VM_EXT_NAME="customScript"
 VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
 VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/fawohlsc/github-runner-azure/master/install-docker.sh','https://raw.githubusercontent.com/fawohlsc/github-runner-azure/master/install-github-runner.sh'"
 RUNNER_NAME=${BASE_NAME}
-# TODO: Do not run GitHub runner under VM Admin
-RUNNER_USER=${VM_ADMIN}
-REPO_URL="https://github.com/fawohlsc/github-runner-azure"
-LABELS="Azure"
 # TODO: Do not pass GitHub token via bash to avoid it being stored in bash history
-VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${RUNNER_NAME} ${RUNNER_USER} ${ACCESS_TOKEN} ${REPO_URL} ${LABELS}"
+VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${ACCESS_TOKEN} ${REPO_URL} ${LABELS}"
 
 echo -e "${BLUE}Executing workflow...${NC}"
 
@@ -69,20 +69,20 @@ echo -e "${GREEN}Configuring VM [${VM_NAME}] with system-managed identity...${NC
 az vm identity assign \
  --resource-group ${RG_NAME} \
  --name ${VM_NAME} 
-VM_PRINCIPAL_ID=$(az vm show  \
+VM_IDENTITY=$(az vm show  \
   --resource-group ${RG_NAME}  \
   --name ${VM_NAME} \
   --query identity.principalId \
   --out tsv)
 
-echo -e "${GREEN}Granting system-managed identity [${VM_PRINCIPAL_ID}] access to container registry [${ACR_NAME}]...${NC}"
+echo -e "${GREEN}Granting system-managed identity [${VM_IDENTITY}] access to container registry [${ACR_NAME}]...${NC}"
 ACR_ID=$(az acr show  \
   --resource-group ${RG_NAME} \
   --name ${ACR_NAME} \
   --query id \
   --output tsv)
 az role assignment create   \
-  --assignee ${VM_PRINCIPAL_ID}   \
+  --assignee ${VM_IDENTITY}   \
   --scope ${ACR_ID}   \
   --role acrpull
 
