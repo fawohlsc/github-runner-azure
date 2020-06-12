@@ -9,7 +9,7 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}Installing docker...${NC}"
 
 echo -e "${GREEN}Uninstalling previous docker version if any...${NC}"
-apt-get remove -y docker docker-engine docker.io containerd runc
+apt-get remove -y docker docker-engine docker.io containerd runc || true # Do not fail on error
 
 echo -e "${GREEN}Updating the apt package index...${NC}"
 apt-get update

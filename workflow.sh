@@ -23,7 +23,7 @@ VM_IMAGE="UbuntuLTS"
 VM_ADMIN=${BASE_NAME}
 VM_EXT_NAME="customScript"
 VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
-VM_EXT_FILE_URIS="https://raw.githubusercontent.com/fawohlsc/github-runner-azure/master/install-docker.sh,https://raw.githubusercontent.com/fawohlsc/github-runner-azure/master/install-github-runner.sh"
+VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/fawohlsc/github-runner-azure/master/install-docker.sh','https://raw.githubusercontent.com/fawohlsc/github-runner-azure/master/install-github-runner.sh'"
 RUNNER_NAME=${BASE_NAME}
 # TODO: Do not run GitHub runner under VM Admin
 RUNNER_USER=${VM_ADMIN}
@@ -60,6 +60,6 @@ az vm extension set \
   --vm-name ${VM_NAME} \
   --name ${VM_EXT_NAME} \
   --publisher ${VM_EXT_PUBLISHER} \
-  --protected-settings "{'fileUris': ['${VM_EXT_FILE_URIS}'],'commandToExecute': '${VM_EXT_COMMAND}'}"
+  --protected-settings "{'fileUris': [${VM_EXT_FILE_URIS}],'commandToExecute': '${VM_EXT_COMMAND}'}"
 
 echo -e "${BLUE}Workflow was successfully executed.${NC}"
