@@ -1,5 +1,10 @@
  
 #!/bin/bash
+# TODO: Use image from container registry
+# TODO: Convert to GitHub Actions
+# TODO: Validate GitHub runner
+# TODO: Delete resource group
+# TODO: Remove runner after execution
 
 set -e -u # Exit script on error and treat unset variables as an error
 
