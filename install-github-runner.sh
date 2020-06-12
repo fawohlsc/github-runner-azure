@@ -30,7 +30,7 @@ az login --identity
 echo -e "${GREEN}Logging in to container registry [${ACR_NAME}]..${NC}"
 az acr login --name ${ACR_NAME}
 
-echo -e "${GREEN}Pulling container image [${ACR_URL}/${RUNNER_IMAGE}:latest]..${NC}"
+echo -e "${GREEN}Pulling container image [${ACR_URL}/${RUNNER_IMAGE}:${RUNNER_IMAGE_TAG}]..${NC}"
 docker pull ${ACR_URL}/${RUNNER_IMAGE}:${RUNNER_IMAGE_TAG}
 
 echo -e "${GREEN}Running GitHub runner as docker container...${NC}"
