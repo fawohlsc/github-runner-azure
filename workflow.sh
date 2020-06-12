@@ -1,6 +1,5 @@
  
 #!/bin/bash
-# TODO: Use image from container registry
 # TODO: Run within GitHub Actions
 # TODO: Validate GitHub runner
 
