@@ -1,7 +1,7 @@
  
 #!/bin/bash
 # TODO: Use image from container registry
-# TODO: Convert to GitHub Actions
+# TODO: Run within GitHub Actions
 # TODO: Validate GitHub runner
 
 set -e -u # Exit script on error and treat unset variables as an error
@@ -24,7 +24,7 @@ ACR_URL="${ACR_NAME}.azurecr.io"
 RUNNER_IMAGE_SOURCE="docker.io/myoung34/github-runner:latest"
 RUNNER_IMAGE="github-runner"
 RUNNER_IMAGE_TAG=${UNIX_TIME}
-VM_NAME=${BASE_NAME}
+VM_NAME="${BASE_NAME}VM"
 VM_IMAGE="UbuntuLTS"
 VM_ADMIN=${BASE_NAME}
 VM_EXT_NAME="customScript"
