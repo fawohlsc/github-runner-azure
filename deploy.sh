@@ -49,6 +49,11 @@ az group create --location ${LOCATION} --name ${RG_NAME}
 
 echo -e "${GREEN}Creating container registry [${ACR_NAME}] in resource group [${RG_NAME}]...${NC}"
 az acr create --resource-group ${RG_NAME} --name ${ACR_NAME} --sku ${ACR_SKU}
+ACR_ID=$(az acr show  \
+  --resource-group ${RG_NAME} \
+  --name ${ACR_NAME} \
+  --query id \
+  --output tsv)
 
 echo -e "${GREEN}Importing runner image [${RUNNER_IMAGE}] into container registry [${ACR_NAME}]...${NC}"
 az acr import \
@@ -74,12 +79,7 @@ VM_IDENTITY=$(az vm show  \
   --query identity.principalId \
   --out tsv)
 
-echo -e "${GREEN}Granting system-managed identity [${VM_IDENTITY}] access to container registry [${ACR_NAME}]...${NC}"
-ACR_ID=$(az acr show  \
-  --resource-group ${RG_NAME} \
-  --name ${ACR_NAME} \
-  --query id \
-  --output tsv)
+echo -e "${GREEN}Granting system-managed identity [${VM_IDENTITY}] access to container registry [${ACR_ID}]...${NC}"
 az role assignment create   \
   --assignee ${VM_IDENTITY}   \
   --scope ${ACR_ID}   \
