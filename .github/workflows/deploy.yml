@@ -17,7 +17,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: "Deploy GitHub Runner to Azure"
       run:  |
-        ./deploy.sh ${{ secrets.GITHUB_TOKEN }}
+        ./deploy.sh ${{ secrets.GH_TOKEN_REPO }}
     - name: "Logout of Azure"
       run: |
         az logout

@@ -15,7 +15,7 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 UNIX_TIME=$(eval "date +%s") # Seconds
 RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
-BASE_NAME="github-runner-4"
+BASE_NAME="github-runner-5"
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 RG_NAME=${BASE_NAME}
 LOCATION="WestEurope"
@@ -69,8 +69,8 @@ az vm create \
   --name ${VM_NAME} \
   --image ${VM_IMAGE} \
   --admin-username $VM_ADMIN \
-  --generate-ssh-keys #\
-  #--public-ip-address "" # Only private IP address
+  --generate-ssh-keys \
+  --public-ip-address "" # Only private IP address
 
 echo -e "${GREEN}Configuring VM [${VM_NAME}] with system-managed identity...${NC}"
 az vm identity assign \
@@ -96,6 +96,7 @@ az vm extension set \
   --vm-name ${VM_NAME} \
   --name ${VM_EXT_NAME} \
   --publisher ${VM_EXT_PUBLISHER} \
-  --protected-settings "{'fileUris': [${VM_EXT_FILE_URIS}],'commandToExecute': '${VM_EXT_COMMAND}'}"
+  --protected-settings "{'fileUris': [${VM_EXT_FILE_URIS}],'commandToExecute': '${VM_EXT_COMMAND}'}" \
+  --debug
 
 echo -e "${BLUE}Deployment completed successfully.${NC}"
