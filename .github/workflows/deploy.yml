@@ -1,4 +1,4 @@
-name: Create self hosted runner
+name: Deploy GitHub Runner to Azure
 
 on:
   push:

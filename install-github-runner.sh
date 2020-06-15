@@ -16,7 +16,7 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 ACR_URL="${ACR_NAME}.azurecr.io"
 
-echo -e "${BLUE}Installing GitHub runner...${NC}"
+echo -e "${BLUE}Installing GitHub Runner...${NC}"
 
 echo -e "${GREEN}Adding user [${RUNNER_USER}] to docker group to avoid sudo when running docker...${NC}"
 usermod -aG docker ${RUNNER_USER}
@@ -33,7 +33,7 @@ az acr login --name ${ACR_NAME}
 echo -e "${GREEN}Pulling container image [${ACR_URL}/${RUNNER_IMAGE}:${RUNNER_IMAGE_TAG}]..${NC}"
 docker pull ${ACR_URL}/${RUNNER_IMAGE}:${RUNNER_IMAGE_TAG}
 
-echo -e "${GREEN}Running GitHub runner as docker container...${NC}"
+echo -e "${GREEN}Running GitHub Runner as docker container...${NC}"
 sudo -u ${RUNNER_USER} \
   -s docker run -d --restart always --name ${RUNNER_NAME} \
   -e ACCESS_TOKEN=${ACCESS_TOKEN} \
@@ -45,4 +45,4 @@ sudo -u ${RUNNER_USER} \
   -v /tmp/${RUNNER_NAME}:/tmp/${RUNNER_NAME} \
   ${ACR_URL}/${RUNNER_IMAGE}:${RUNNER_IMAGE_TAG}
 
-echo -e "${BLUE}GitHub runner was successfully installed.${NC}"
+echo -e "${BLUE}GitHub Runner was successfully installed.${NC}"
