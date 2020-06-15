@@ -84,8 +84,7 @@ az role assignment create   \
   --assignee-object-id ${VM_IDENTITY}   \ # Use assignee-object-id instead of assignee to avoid errors caused by propagation latency in AAD Graph
   --assignee-principal-type MSI
   --scope ${ACR_ID}   \
-  --role acrpull \
-  --debug
+  --role acrpull
 
 echo -e "${GREEN}Installing VM extension [${VM_EXT_NAME}] in VM [${VM_NAME}]...${NC}"
 az vm extension set \
