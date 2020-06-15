@@ -69,8 +69,8 @@ az vm create \
   --name ${VM_NAME} \
   --image ${VM_IMAGE} \
   --admin-username $VM_ADMIN \
-  --generate-ssh-keys \
-  --public-ip-address "" # Only private IP address
+  --generate-ssh-keys #\
+  #--public-ip-address "" # Only private IP address
 
 echo -e "${GREEN}Configuring VM [${VM_NAME}] with system-managed identity...${NC}"
 az vm identity assign \
