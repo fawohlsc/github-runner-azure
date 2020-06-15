@@ -1,0 +1,15 @@
+name: Deploy GitHub Runner to Azure
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: self-hosted, Linux, X64, Azure
+    
+    steps: 
+    - name: "Test GitHub Runner on Azure"
+      run:  |
+        hostname -I | awk '{print "GitHub Runner Private IP:\t", $1}'
+  

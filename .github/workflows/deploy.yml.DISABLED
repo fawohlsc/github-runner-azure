@@ -22,7 +22,7 @@ jobs:
       run: |
         az logout
   test:
-    runs-on: self-hosted, Azure
+    runs-on: self-hosted, Linux, X64, Azure
     needs: deploy
 
     steps: 

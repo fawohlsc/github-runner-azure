@@ -96,7 +96,6 @@ az vm extension set \
   --vm-name ${VM_NAME} \
   --name ${VM_EXT_NAME} \
   --publisher ${VM_EXT_PUBLISHER} \
-  --protected-settings "{'fileUris': [${VM_EXT_FILE_URIS}],'commandToExecute': '${VM_EXT_COMMAND}'}" \
-  --debug
+  --protected-settings "{'fileUris': [${VM_EXT_FILE_URIS}],'commandToExecute': '${VM_EXT_COMMAND}'}"
 
 echo -e "${BLUE}Deployment completed successfully.${NC}"
