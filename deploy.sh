@@ -13,7 +13,7 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 UNIX_TIME=$(eval "date +%s") # Seconds
 RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
-BASE_NAME="github-runner"
+BASE_NAME="github-runner-1"
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 RG_NAME=${BASE_NAME}
 LOCATION="WestEurope"
@@ -67,7 +67,8 @@ az vm create \
   --name ${VM_NAME} \
   --image ${VM_IMAGE} \
   --admin-username $VM_ADMIN \
-  --generate-ssh-keys
+  --generate-ssh-keys \
+  --public-ip-address "" # Only private IP address
 
 echo -e "${GREEN}Configuring VM [${VM_NAME}] with system-managed identity...${NC}"
 az vm identity assign \

@@ -9,14 +9,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:  
-    - uses: actions/checkout@v2
-    - name: Login to Azure
+    - name: "Checkout GitHub repository"
+      uses: actions/checkout@v2
+    - name: "Login to Azure"
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Deploy GitHub Runner to Azure
+    - name: "Deploy GitHub Runner to Azure"
       run:  |
         ./deploy.sh ${{ secrets.GITHUB_TOKEN }}
-    - name: Logout of Azure
+    - name: "Logout of Azure"
       run: |
         az logout
+  test:
+    runs-on: self-hosted, Azure
+
+    steps: 
+    - name: "Test GitHub Runner on Azure"
+      run:  |
+        hostname -I | awk '{print "GitHub Runner Private IP:\t", $1}'
+  
