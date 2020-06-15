@@ -5,7 +5,7 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 SP_NAME="gitHub-runner-azure"
-SP_ROLE="contributor"
+SP_ROLE="owner"
 SP_SCOPES="/subscriptions/${SUBSCRIPTION_ID}"
 
 set -e -u # Exit script on error and treat unset variables as an error
