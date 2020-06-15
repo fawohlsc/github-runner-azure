@@ -2,11 +2,12 @@
 #!/bin/bash
 # TODO: Run within GitHub Actions
 # TODO: Validate GitHub Runner
+# TODO: Base name should be a parameter
 # TODO: az network nsg rule delete -g github-runner-1 --nsg-name github-runner-1NSG -n 	default-allow-ssh
 
 set -e -u # Exit script on error and treat unset variables as an error
 
-ACCESS_TOKEN=${1} # GitHub access token
+GITHUB_TOKEN=${1} # GitHub access token
 
 BLUE="\033[0;34m"
 RED="\033[0;31m"
@@ -14,7 +15,7 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 UNIX_TIME=$(eval "date +%s") # Seconds
 RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
-BASE_NAME="github-runner-2"
+BASE_NAME="github-runner-3"
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 RG_NAME=${BASE_NAME}
 LOCATION="WestEurope"
@@ -36,7 +37,7 @@ RUNNER_USER=${VM_ADMIN}
 REPO_URL="https://github.com/fawohlsc/github-runner-azure"
 LABELS="Azure"
 # TODO: Do not pass GitHub token via bash to avoid it being stored in bash history
-VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${ACCESS_TOKEN} ${REPO_URL} ${LABELS}"
+VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${GITHUB_TOKEN} ${REPO_URL} ${LABELS}"
 
 echo -e "${BLUE}Executing deployment...${NC}"
 
@@ -85,7 +86,7 @@ echo -e "${GREEN}Granting system-managed identity [${VM_IDENTITY}] access to con
 # Use assignee-object-id instead of assignee to avoid errors caused by propagation latency in AAD Graph
 az role assignment create   \
   --assignee-object-id ${VM_IDENTITY}   \
-  --assignee-principal-type MSI \
+  --assignee-principal-type ServicePrincipal \
   --scope ${ACR_ID}   \
   --role acrpull
 

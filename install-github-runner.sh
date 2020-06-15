@@ -7,7 +7,7 @@ RUNNER_IMAGE=${2}
 RUNNER_IMAGE_TAG=${3}
 RUNNER_NAME=${4}
 RUNNER_USER=${5}
-ACCESS_TOKEN=${6}
+GITHUB_TOKEN=${6}
 REPO_URL=${7}
 LABELS=${8}
 
@@ -36,7 +36,7 @@ docker pull ${ACR_URL}/${RUNNER_IMAGE}:${RUNNER_IMAGE_TAG}
 echo -e "${GREEN}Running GitHub Runner as docker container...${NC}"
 sudo -u ${RUNNER_USER} \
   -s docker run -d --restart always --name ${RUNNER_NAME} \
-  -e ACCESS_TOKEN=${ACCESS_TOKEN} \
+  -e ACCESS_TOKEN=${GITHUB_TOKEN} \
   -e REPO_URL=${REPO_URL} \
   -e RUNNER_NAME=${RUNNER_NAME} \
   -e RUNNER_WORKDIR="/tmp/${RUNNER_NAME}" \
