@@ -23,6 +23,7 @@ jobs:
         az logout
   test:
     runs-on: self-hosted, Azure
+    needs: deploy
 
     steps: 
     - name: "Test GitHub Runner on Azure"

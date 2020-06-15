@@ -2,6 +2,7 @@
 #!/bin/bash
 # TODO: Run within GitHub Actions
 # TODO: Validate GitHub Runner
+# TODO: az network nsg rule delete -g github-runner-1 --nsg-name github-runner-1NSG -n 	default-allow-ssh
 
 set -e -u # Exit script on error and treat unset variables as an error
 
@@ -13,7 +14,7 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 UNIX_TIME=$(eval "date +%s") # Seconds
 RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
-BASE_NAME="github-runner-1"
+BASE_NAME="github-runner-2"
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 RG_NAME=${BASE_NAME}
 LOCATION="WestEurope"
@@ -81,8 +82,9 @@ VM_IDENTITY=$(az vm show  \
   --out tsv)
 
 echo -e "${GREEN}Granting system-managed identity [${VM_IDENTITY}] access to container registry [${ACR_ID}]...${NC}"
+# Use assignee-object-id instead of assignee to avoid errors caused by propagation latency in AAD Graph
 az role assignment create   \
-  --assignee-object-id ${VM_IDENTITY}   \ # Use assignee-object-id instead of assignee to avoid errors caused by propagation latency in AAD Graph
+  --assignee-object-id ${VM_IDENTITY}   \
   --assignee-principal-type MSI \
   --scope ${ACR_ID}   \
   --role acrpull
