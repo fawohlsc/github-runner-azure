@@ -1,16 +1,16 @@
  
 #!/bin/bash
 # TODO: Run within GitHub Actions
-# TODO: Validate GitHub runner
+# TODO: Validate GitHub Runner
 
 set -e -u # Exit script on error and treat unset variables as an error
 
 ACCESS_TOKEN=${1} # GitHub access token
 
-BLUE='\033[0;34m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+BLUE="\033[0;34m"
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+NC="\033[0m" # No Color
 UNIX_TIME=$(eval "date +%s") # Seconds
 RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
 BASE_NAME="github-runner"
@@ -23,7 +23,7 @@ ACR_URL="${ACR_NAME}.azurecr.io"
 RUNNER_IMAGE_SOURCE="docker.io/myoung34/github-runner:latest"
 RUNNER_IMAGE="github-runner"
 RUNNER_IMAGE_TAG=${UNIX_TIME}
-# TODO: Do not run GitHub runner under VM Admin
+# TODO: Do not run GitHub Runner under VM Admin
 VM_NAME="${BASE_NAME}"
 VM_IMAGE="UbuntuLTS"
 VM_ADMIN=${BASE_NAME}
@@ -37,7 +37,7 @@ LABELS="Azure"
 # TODO: Do not pass GitHub token via bash to avoid it being stored in bash history
 VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${ACCESS_TOKEN} ${REPO_URL} ${LABELS}"
 
-echo -e "${BLUE}Executing workflow...${NC}"
+echo -e "${BLUE}Executing deployment...${NC}"
 
 if az group show --name ${RG_NAME} 2>/dev/null; then
   echo -e "${RED}Resource group [${RG_NAME}] in subscription [${SUBSCRIPTION_ID}] already exists. Exiting...${NC}"
@@ -93,4 +93,4 @@ az vm extension set \
   --publisher ${VM_EXT_PUBLISHER} \
   --protected-settings "{'fileUris': [${VM_EXT_FILE_URIS}],'commandToExecute': '${VM_EXT_COMMAND}'}"
 
-echo -e "${BLUE}Workflow was successfully executed.${NC}"
+echo -e "${BLUE}Deployment completed successfully.${NC}"

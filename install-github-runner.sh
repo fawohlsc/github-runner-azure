@@ -11,9 +11,9 @@ ACCESS_TOKEN=${6}
 REPO_URL=${7}
 LABELS=${8}
 
-BLUE='\033[0;34m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+BLUE="\033[0;34m"
+GREEN="\033[0;32m"
+NC="\033[0m" # No Color
 ACR_URL="${ACR_NAME}.azurecr.io"
 
 echo -e "${BLUE}Installing GitHub Runner...${NC}"
@@ -45,4 +45,4 @@ sudo -u ${RUNNER_USER} \
   -v /tmp/${RUNNER_NAME}:/tmp/${RUNNER_NAME} \
   ${ACR_URL}/${RUNNER_IMAGE}:${RUNNER_IMAGE_TAG}
 
-echo -e "${BLUE}GitHub Runner was successfully installed.${NC}"
+echo -e "${BLUE}GitHub Runner installed successfully.${NC}"

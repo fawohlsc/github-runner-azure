@@ -10,5 +10,13 @@ jobs:
 
     steps:  
     - uses: actions/checkout@v2
-    - name: Deploy GitHub RUnenr
-      run: ./deploy.sh ${{ secrets.GITHUB_TOKEN }}
+    - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Deploy GitHub Runner to Azure
+      run:  |
+        ./deploy.sh ${{ secrets.GITHUB_TOKEN }}
+    - name: Logout of Azure
+      run: |
+        az logout

@@ -2,9 +2,9 @@
 
 set -e -u # Exit script on error and treat unset variables as an error
 
-BLUE='\033[0;34m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+BLUE="\033[0;34m"
+GREEN="\033[0;32m"
+NC="\033[0m" # No Color
 
 echo -e "${BLUE}Installing docker...${NC}"
 
@@ -36,4 +36,4 @@ apt-get update
 echo -e "${GREEN}Installing docker engine and containerd...${NC}"
 apt-get install -y docker-ce docker-ce-cli containerd.io
 
-echo -e "${BLUE}Docker was successfully installed.${NC}"
+echo -e "${BLUE}Docker installed successfully.${NC}"
