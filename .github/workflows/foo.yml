@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: self-hosted, Linux, X64, Azure
+    runs-on: Azure
     
     steps: 
     - name: "Test GitHub Runner on Azure"
