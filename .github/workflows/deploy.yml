@@ -10,5 +10,5 @@ jobs:
 
     steps:  
     - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: ls -l
+    - name: Deploy GitHub RUnenr
+      run: ./deploy.sh ${{ secrets.GITHUB_TOKEN }}
