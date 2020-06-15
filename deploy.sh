@@ -13,7 +13,7 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 UNIX_TIME=$(eval "date +%s") # Seconds
 RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
-BASE_NAME="github-runner"
+BASE_NAME="github-runner-2"
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 RG_NAME=${BASE_NAME}
 LOCATION="WestEurope"
@@ -83,7 +83,8 @@ echo -e "${GREEN}Granting system-managed identity [${VM_IDENTITY}] access to con
 az role assignment create   \
   --assignee ${VM_IDENTITY}   \
   --scope ${ACR_ID}   \
-  --role acrpull
+  --role acrpull \
+  --debug
 
 echo -e "${GREEN}Installing VM extension [${VM_EXT_NAME}] in VM [${VM_NAME}]...${NC}"
 az vm extension set \
