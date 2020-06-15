@@ -13,7 +13,7 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 UNIX_TIME=$(eval "date +%s") # Seconds
 RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
-BASE_NAME="github-runner-1337"
+BASE_NAME="github-runner"
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 RG_NAME=${BASE_NAME}
 LOCATION="WestEurope"
@@ -82,7 +82,7 @@ VM_IDENTITY=$(az vm show  \
 echo -e "${GREEN}Granting system-managed identity [${VM_IDENTITY}] access to container registry [${ACR_ID}]...${NC}"
 az role assignment create   \
   --assignee-object-id ${VM_IDENTITY}   \ # Use assignee-object-id instead of assignee to avoid errors caused by propagation latency in AAD Graph
-  # --assignee-principal-type MSI
+  --assignee-principal-type MSI
   --scope ${ACR_ID}   \
   --role acrpull \
   --debug
