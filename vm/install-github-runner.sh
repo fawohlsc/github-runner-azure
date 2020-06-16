@@ -15,9 +15,9 @@ RUNNER_PACKAGE="./actions-runner-linux-x64-2.263.0.tar.gz"
 
 RUNNER_API_ACCEPT_HEADER="Accept: application/vnd.github.v3+json"
 RUNNER_API_AUTH_HEADER="Authorization: token ${GH_TOKEN}"
-RUNNER_API_URL="https://api.github.com/repos/fawohlsc/github-runner-azure/actions/runners/registration-token"
+RUNNER_API_URL="https://api.github.com/repos/${GH_REPOSITORY}/actions/runners/registration-token"
 
-RUNNER_URL="https://github.com/fawohlsc/github-runner-azure"
+RUNNER_URL="https://github.com/${GH_REPOSITORY}"
 
 BLUE="\033[0;34m"
 GREEN="\033[0;32m"

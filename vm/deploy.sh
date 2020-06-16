@@ -18,7 +18,6 @@ VM_EXT_NAME="customScript"
 VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
 VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${GH_REPOSITORY}/master/vm/install-github-runner.sh'"
 # TODO: Do not pass GH_TOKEN via bash
-echo "GH_REPOSITORY: ${GH_REPOSITORY}" && exit
 VM_EXT_COMMAND="./install-github-runner.sh ${GH_TOKEN} ${GH_REPOSITORY} ${RUNNER_PACKAGE_VERSION} ${RUNNER_NAME} ${RUNNER_LABELS}"
 
 BLUE="\033[0;34m"
