@@ -3,7 +3,7 @@
 # TODO: Run within GitHub Actions
 # TODO: Validate GitHub Runner
 # TODO: Base name should be a parameter
-# TODO: az network nsg rule delete -g github-runner-1 --nsg-name github-runner-1NSG -n 	default-allow-ssh
+# TODO: az network nsg rule delete -g ${RG_NAME} --nsg-name ${NSG_NAME} -n ${NSG_RULE_NAME}
 # TODO: Multiple pipelines: Deploy Infrastructure, Install Runner
 
 set -e -u # Exit script on error and treat unset variables as an error
@@ -33,6 +33,8 @@ VM_ADMIN=${BASE_NAME}
 VM_EXT_NAME="customScript"
 VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
 VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/fawohlsc/github-runner-azure/master/install-docker.sh','https://raw.githubusercontent.com/fawohlsc/github-runner-azure/master/install-github-runner.sh'"
+NSG_NAME="${BASE_NAME}NSG"
+NSG_RULE_NAME="default-allow-ssh"
 RUNNER_NAME=${BASE_NAME}
 RUNNER_USER=${VM_ADMIN}
 REPO_URL="https://github.com/fawohlsc/github-runner-azure"
@@ -72,6 +74,9 @@ az vm create \
   --admin-username $VM_ADMIN \
   --generate-ssh-keys \
   --public-ip-address "" # Only private IP address
+
+echo -e "${GREEN}Deleting NSG rule [${NSG_RULE_NAME}] in NSG [${RG_NAME}]...${NC}"
+az network nsg rule delete -g ${RG_NAME} --nsg-name ${NSG_NAME} -n ${NSG_RULE_NAME}
 
 echo -e "${GREEN}Configuring VM [${VM_NAME}] with system-managed identity...${NC}"
 az vm identity assign \
