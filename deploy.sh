@@ -9,6 +9,7 @@
 set -e -u # Exit script on error and treat unset variables as an error
 
 GITHUB_TOKEN=${1} # GitHub access token
+BASE_NAME=${2}
 
 BLUE="\033[0;34m"
 RED="\033[0;31m"
@@ -16,7 +17,6 @@ GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 UNIX_TIME=$(eval "date +%s") # Seconds
 RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
-BASE_NAME="github-runner-5"
 SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 RG_NAME=${BASE_NAME}
 LOCATION="WestEurope"

@@ -1,14 +1,16 @@
-name: Test GitHub Runner on Azure
+name: Deploy GitHub Runner to Azure
 
 on:
   repository_dispatch
 
 jobs:
-  test:
-    runs-on: [self-hosted, Linux, Azure]
-    
-    steps: 
-    - name: "Test GitHub Runner on Azure"
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:  
+      - name: "Test GitHub Runner on Azure"
       run:  |
-        hostname -I | awk '{print "GitHub Runner Private IP:\t", $1}'
+        echo $BASE_NAME
   
+env:
+  BASE_NAME: "github-runner-${{ github.run_number }}"	
