@@ -12,23 +12,23 @@ VM_IMAGE="UbuntuLTS"
 VM_ADMIN=${RG_NAME}
 VM_EXT_NAME="customScript"
 VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
-VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/install-docker.sh','https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/install-github-runner.sh'"
+VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${GH_REPOSITORY}/master/install-docker.sh','https://raw.githubusercontent.com/${GH_REPOSITORY}/master/install-github-runner.sh'"
 NSG_NAME="${RG_NAME}NSG"
 NSG_RULE_NAME="default-allow-ssh"
 RUNNER_IMAGE_SOURCE="docker.io/myoung34/github-runner:latest"
 RUNNER_IMAGE="github-runner"
-RUNNER_IMAGE_TAG=${GITHUB_RUN_NUMBER}
+RUNNER_IMAGE_TAG=${RUN_NUMBER}
 RUNNER_NAME=${RG_NAME}
 RUNNER_USER=${VM_ADMIN} # TODO: Do not run GitHub Runner under VM Admin
 RUNNER_LABELS="Azure"
-REPO_URL="https://github.com/${GITHUB_REPOSITORY}"
+REPO_URL="https://github.com/${GH_REPOSITORY}"
 # TODO: Do not pass GH_TOKEN via bash
 VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${GH_TOKEN} ${REPO_URL} ${RUNNER_LABELS}"
 
 echo -e "${BLUE}Executing deployment...${NC}"
 
 echo -e "${GREEN}Creating resource group [${RG_NAME}] in location [${RG_LOCATION}]...${NC}"
-az group create --location ${LOCATION} --name ${RG_NAME}
+az group create --location ${RG_LOCATION} --name ${RG_NAME}
 
 echo -e "${GREEN}Creating container registry [${ACR_NAME}] in resource group [${RG_NAME}]...${NC}"
 az acr create --resource-group ${RG_NAME} --name ${ACR_NAME} --sku ${ACR_SKU}
