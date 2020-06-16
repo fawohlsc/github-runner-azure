@@ -14,14 +14,11 @@ NSG_RULE_NAME="default-allow-ssh"
 VM_EXT_NAME="customScript"
 VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
 VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${GH_REPOSITORY}/master/vm/install-github-runner.sh'"
-
-GH_TOKEN="AJ3UTYGUMSAI7RY7GJGPYNC65D4B4"
 RUNNER_PACKAGE_VERSION="2.263.0"
 RUNNER_NAME=${RG_NAME}
-RUNNER_REPO_URL="https://github.com/${GH_REPOSITORY}"
 RUNNER_LABELS="Azure,VM"
 # TODO: Do not pass GH_TOKEN via bash
-VM_EXT_COMMAND="./install-github-runner.sh ${GH_TOKEN} ${RUNNER_PACKAGE_VERSION} ${RUNNER_NAME} ${RUNNER_REPO_URL} ${RUNNER_LABELS}"
+VM_EXT_COMMAND="./install-github-runner.sh ${GH_TOKEN} ${GH_REPOSITORY} ${RUNNER_PACKAGE_VERSION} ${RUNNER_NAME} ${RUNNER_LABELS}"
 
 echo -e "${BLUE}Executing deployment...${NC}"
 
