@@ -1,10 +1,7 @@
 name: Deploy as Container
 
 on:
-#  repository_dispatch
- push:
-    branches:
-      - master
+  repository_dispatch
 
 jobs:
   deploy:
