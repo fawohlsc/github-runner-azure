@@ -19,7 +19,7 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: "Create resource group"
       run:  |
-        az group create --location ${{env.LOCATION}} --name ${{env.RG_NAME}}-${{github.run_number}-end}
+        az group create --location ${{env.LOCATION}} --name ${{env.RG_NAME}}-${{github.run_number}}-end}
 
     env:
       RG_NAME: "github-runner-${{github.run_number}}"
