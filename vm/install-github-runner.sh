@@ -22,6 +22,12 @@ NC="\033[0m" # No Color
 
 echo -e "${BLUE}Installing GitHub Runner...${NC}"
 
+echo -e "${GREEN}Updating the apt package index...${NC}"
+apt-get update
+
+echo -e "${GREEN}Installing jq...${NC}"
+apt-get install -y jq
+
 echo -e "${GREEN}Downloading GitHub Runner package...${NC}"
 mkdir actions-runner && cd actions-runner
 curl -O -L ${RUNNER_PACKAGE_URL}
