@@ -2,7 +2,6 @@ name: Deploy GitHub Runner to Azure
 
 on:
   repository_dispatch
-    types: [deploy]
   
 env:
   BASE_NAME: "github-runner-${{ github.run_number }}"	

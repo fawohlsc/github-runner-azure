@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:  
-      - name: "Test GitHub Runner on Azure"
+      - name: "Foo"
         run:  |
-            echo "BASE_NAME: $BASE_NAME"
-            echo $BASE_NAME
+            BLUE="\033[0;34m"
+            C="\033[0m" # No Color
+            echo -e "${BLUE}Foo...${NC}"
