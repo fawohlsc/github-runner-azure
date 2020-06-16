@@ -27,7 +27,7 @@ jobs:
     env:
       RG_NAME: "github-runner-${{github.run_number}}"
       LOCATION: "WestEurope"
-      ACR_NAME: "${{env.RG_NAME}}ACR"
+      ACR_NAME: "${RG_NAME}ACR"
       RUNNER_IMAGE_SOURCE: "docker.io/myoung34/github-runner:latest"
       RUNNER_IMAGE: "github-runner"
       RUNNER_IMAGE_TAG: ${{github.GITHUB_RUN_NUMBER}}
