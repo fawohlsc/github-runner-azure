@@ -2,6 +2,7 @@ name: Deploy GitHub Runner to Azure
 
 on:
   repository_dispatch
+    types: [deploy]
   
 env:
   BASE_NAME: "github-runner-${{ github.run_number }}"	
@@ -20,7 +21,7 @@ jobs:
     - name: "Deploy GitHub Runner to Azure"
       # Cannot use default GITHUB_TOKEN since it doesn't have full repo scope
       run:  |
-        ./deploy.sh ${{ secrets.GH_TOKEN_REPO, $BASE_NAME }}
+        ./deploy.sh ${{ secrets.GH_TOKEN_REPO }} $BASE_NAME
     - name: "Logout of Azure"
       run: |
         az logout
