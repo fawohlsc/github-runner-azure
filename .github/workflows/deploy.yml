@@ -17,14 +17,14 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-    - name: Azure CLI script file
+    - name: Deploy GitHub Runner to Azure
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          chmod +x $GITHUB_WORKSPACE/foo.sh
-          $GITHUB_WORKSPACE/foo.sh
-
-    env:
-      RG_NAME: "github-runner-${{github.run_number}}"
-      RG_LOCATION: "WestEurope"
-      GH_TOKEN_REPO: ${{secrets.GH_TOKEN_REPO}}
+          chmod +x $GITHUB_WORKSPACE/deploy.sh
+          $GITHUB_WORKSPACE/deploy.sh
+      env:
+        RG_NAME: "github-runner-${{github.run_number}}"
+        RG_LOCATION: "WestEurope"
+        GH_TOKEN: ${{secrets.GH_TOKEN_REPO}}
+    
