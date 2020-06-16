@@ -3,6 +3,9 @@ name: Foo
 on:
   repository_dispatch
 
+env:
+  BASE_NAME: "github-runner-${{ github.run_number }}"	
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,6 +15,3 @@ jobs:
         run:  |
             echo "BASE_NAME: $BASE_NAME"
             echo $BASE_NAME
-
-env:
-  BASE_NAME: "github-runner-${{ github.run_number }}"	
