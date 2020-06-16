@@ -1,4 +1,4 @@
-name: Deploy GitHub Runner to Azure
+name: Test GitHub Runner on Azure
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: Azure
+    runs-on: [self-hosted, Linux, Azure]
     
     steps: 
     - name: "Test GitHub Runner on Azure"

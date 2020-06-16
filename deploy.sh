@@ -4,6 +4,7 @@
 # TODO: Validate GitHub Runner
 # TODO: Base name should be a parameter
 # TODO: az network nsg rule delete -g github-runner-1 --nsg-name github-runner-1NSG -n 	default-allow-ssh
+# TODO: Multiple pipelines: Deploy Infrastructure, Install Runner
 
 set -e -u # Exit script on error and treat unset variables as an error
 
