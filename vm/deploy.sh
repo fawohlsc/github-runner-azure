@@ -15,8 +15,7 @@ VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${GH_REPOSITORY}/master/vm/
 NSG_NAME="${RG_NAME}VMNSG"
 NSG_RULE_NAME="default-allow-ssh"
 RUNNER_NAME=${RG_NAME}
-RUNNER_USER=${VM_ADMIN} # TODO: Do not run GitHub Runner under VM Admin
-RUNNER_LABELS="Azure"
+RUNNER_LABELS="Azure,VM"
 REPO_URL="https://github.com/${GH_REPOSITORY}"
 # TODO: Do not pass GH_TOKEN via bash
 VM_EXT_COMMAND="./install-github-runner.sh"
