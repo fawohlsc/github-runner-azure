@@ -16,11 +16,11 @@ VM_ADMIN=${RG_NAME}
 VM_EXT_NAME="customScript"
 VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
 VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${GH_REPOSITORY}/master/install-docker.sh','https://raw.githubusercontent.com/${GH_REPOSITORY}/master/install-github-runner.sh'"
-NSG_NAME="${RG_NAME}NSG"
+NSG_NAME="${RG_NAME}VMNSG"
 NSG_RULE_NAME="default-allow-ssh"
 RUNNER_IMAGE_SOURCE="docker.io/myoung34/github-runner:latest"
 RUNNER_IMAGE="github-runner"
-RUNNER_IMAGE_TAG=${RUN_NUMBER}
+RUNNER_IMAGE_TAG="latest"
 RUNNER_NAME=${RG_NAME}
 RUNNER_USER=${VM_ADMIN} # TODO: Do not run GitHub Runner under VM Admin
 RUNNER_LABELS="Azure"
@@ -56,7 +56,7 @@ az vm create \
   --generate-ssh-keys \
   --public-ip-address "" # Only private IP address
 
-echo -e "${GREEN}Deleting NSG rule [${NSG_RULE_NAME}] in NSG [${RG_NAME}]...${NC}"
+echo -e "${GREEN}Deleting NSG rule [${NSG_RULE_NAME}] in NSG [${NSG_NAME}]...${NC}"
 az network nsg rule delete -g ${RG_NAME} --nsg-name ${NSG_NAME} -n ${NSG_RULE_NAME}
 
 echo -e "${GREEN}Configuring VM [${VM_NAME}] with system-managed identity...${NC}"
