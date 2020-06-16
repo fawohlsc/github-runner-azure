@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:  
     - name: "Checkout GitHub repository"
       uses: actions/checkout@v2
@@ -28,4 +28,12 @@ jobs:
         RG_LOCATION: "WestEurope"
         GH_TOKEN: ${{secrets.GH_TOKEN_REPO}}
         GH_REPOSITORY: ${{github.repository}}
-    
+  
+  test:
+    runs-on: [self-hosted, Linux, Azure]
+    needs: deploy
+
+    steps: 
+    - name: "Test GitHub Runner on Azure"
+      run:  |
+        hostname -I | awk '{print "GitHub Runner Private IP:\t", $1}'
