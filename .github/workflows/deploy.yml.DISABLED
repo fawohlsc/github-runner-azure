@@ -2,7 +2,8 @@ name: Deploy GitHub Runner to Azure
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master
+]
 
 jobs:
   deploy:
@@ -14,10 +15,16 @@ jobs:
     - name: "Login to Azure"
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${
+  { secrets.AZURE_CREDENTIALS
+  }
+}
     - name: "Deploy GitHub Runner to Azure"
       run:  |
-        ./deploy.sh ${{ secrets.GH_TOKEN_REPO }}
+        ./deploy.sh ${
+  { secrets.GH_TOKEN_REPO
+  }
+}
     - name: "Logout of Azure"
       run: |
         az logout
@@ -28,5 +35,6 @@ jobs:
     steps: 
     - name: "Test GitHub Runner on Azure"
       run:  |
-        hostname -I | awk '{print "GitHub Runner Private IP:\t", $1}'
+        hostname -I | awk '{print "GitHub Runner Private IP:\t", $1
+}'
   

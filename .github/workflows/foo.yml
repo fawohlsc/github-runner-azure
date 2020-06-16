@@ -1,8 +1,7 @@
 name: Test GitHub Runner on Azure
 
 on:
-  push:
-    branches: [ master ]
+  repository_dispatch
 
 jobs:
   test:
