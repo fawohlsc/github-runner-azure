@@ -17,7 +17,7 @@ RUNNER_API_ACCEPT_HEADER="Accept: application/vnd.github.v3+json"
 RUNNER_API_AUTH_HEADER="Authorization: token ${GH_TOKEN}"
 RUNNER_API_URL="https://api.github.com/repos/fawohlsc/github-runner-azure/actions/runners/registration-token"
 
-RUNNER_URL="https://github.com/${GH_REPOSITORY}"
+RUNNER_URL="https://github.com/fawohlsc/github-runner-azure"
 
 BLUE="\033[0;34m"
 GREEN="\033[0;32m"
