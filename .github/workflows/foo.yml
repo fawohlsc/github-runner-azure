@@ -9,5 +9,5 @@ jobs:
 
     steps:  
       - name: "Test GitHub Runner on Azure"
-      run:  |
-        echo "Something..."
+        run:  |
+            echo "Something..."
