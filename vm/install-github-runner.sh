@@ -40,6 +40,7 @@ tar xzf ${RUNNER_PACKAGE}
 
 echo -e "${GREEN}Retrieving GitHub Runner token...${NC}"
 # TODO Fix CURL command
+echo "RUNNER_API_URL: ${RUNNER_API_URL}"
 RUNNER_TOKEN="$(curl \
   -XPOST \
   -fsSL \
