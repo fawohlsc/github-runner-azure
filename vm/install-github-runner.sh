@@ -33,7 +33,7 @@ chmod +x ./config.sh
   --unattended \
   --replace
 
-#TODO: Start GitHub runner as service to cover VM reboots
+#TODO: Install GitHub runner as service to cover VM reboots
 echo -e "${GREEN}Run the GitHub Runner ...${NC}"
 chmod +x ./run.sh
 ./run.sh
