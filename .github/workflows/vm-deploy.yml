@@ -1,10 +1,10 @@
 name: Deploy as VM
 
 on:
-#  repository_dispatch
- push:
-    branches:
-      - master
+  repository_dispatch
+# push:
+#    branches:
+#      - master
 
 jobs:
   deploy:
