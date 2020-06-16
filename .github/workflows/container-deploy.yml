@@ -1,7 +1,12 @@
 name: Deploy as Container
 
 on:
-  repository_dispatch
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/container-deploy.yml'
+      - 'container/*'
 
 jobs:
   deploy:
@@ -27,7 +32,7 @@ jobs:
         GH_REPOSITORY: ${{github.repository}}
   
   test:
-    runs-on: [self-hosted, Linux, Azure]
+    runs-on: [self-hosted, Linux, Azure, Container]
     needs: deploy
 
     steps: 
