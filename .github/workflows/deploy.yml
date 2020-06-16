@@ -23,9 +23,6 @@ jobs:
         inlineScript: |
           chmod +x $GITHUB_WORKSPACE/foo.sh
           $GITHUB_WORKSPACE/foo.sh
-      #- name: "Create resource group"
-      #  run:  |
-      #    az group create --location ${{env.LOCATION}} --name ${{env.RG_NAME}}
 
     env:
       RG_NAME: "github-runner-${{github.run_number}}"
