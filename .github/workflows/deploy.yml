@@ -2,34 +2,36 @@ name: Deploy GitHub Runner to Azure
 
 on:
   repository_dispatch
-  
+
 env:
-  BLUE: "\033[0;34m"
-  NC: "\033[0m" # No Color
-  BASE_NAME: "github-runner-${{github.GITHUB_RUN_NUMBER}}"	
-  RG_NAME: ${BASE_NAME}
-  LOCATION: "WestEurope"
-  ACR_NAME: ${BASE_NAME}
-  RUNNER_IMAGE_SOURCE: "docker.io/myoung34/github-runner:latest"
-  RUNNER_IMAGE: "github-runner"
-  RUNNER_IMAGE_TAG: ${{github.GITHUB_RUN_NUMBER}}
-  VM_NAME: "${BASE_NAME}"
-  VM_IMAGE: "UbuntuLTS"
-  VM_ADMIN: ${BASE_NAME}
-  VM_EXT_NAME: "customScript"
-  VM_EXT_PUBLISHER: "Microsoft.Azure.Extensions"
-  VM_EXT_FILE_URIS: "'https://raw.githubusercontent.com/${{github.GITHUB_REPOSITORY}}/master/install-docker.sh','https://raw.githubusercontent.com/${{github.GITHUB_REPOSITORY}}/master/install-github-runner.sh'"
-  NSG_NAME: "${BASE_NAME}NSG"
-  NSG_RULE_NAME: "default-allow-ssh"
-  RUNNER_NAME: ${BASE_NAME}
-  RUNNER_USER: ${VM_ADMIN}
-  RUNNER_LABELS: "Azure"
-  REPO_URL: "https://github.com/${{github.GITHUB_REPOSITORY}}"
-  VM_EXT_COMMAND: "./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${{secrets.GH_TOKEN_REPO}} ${REPO_URL} ${RUNNER_LABELS}"
+  GREEN: "\\033[0;34m"  # Todo its BLUE
+  NC: "\\033[0m" # No Color
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    env:
+      BASE_NAME: "github-runner-${{github.GITHUB_RUN_NUMBER}}"	
+      RG_NAME: ${BASE_NAME}
+      LOCATION: "WestEurope"
+      ACR_NAME: ${BASE_NAME}
+      RUNNER_IMAGE_SOURCE: "docker.io/myoung34/github-runner:latest"
+      RUNNER_IMAGE: "github-runner"
+      RUNNER_IMAGE_TAG: ${{github.GITHUB_RUN_NUMBER}}
+      VM_NAME: "${BASE_NAME}"
+      VM_IMAGE: "UbuntuLTS"
+      VM_ADMIN: ${BASE_NAME}
+      VM_EXT_NAME: "customScript"
+      VM_EXT_PUBLISHER: "Microsoft.Azure.Extensions"
+      VM_EXT_FILE_URIS: "'https://raw.githubusercontent.com/${{github.GITHUB_REPOSITORY}}/master/install-docker.sh','https://raw.githubusercontent.com/${{github.GITHUB_REPOSITORY}}/master/install-github-runner.sh'"
+      NSG_NAME: "${BASE_NAME}NSG"
+      NSG_RULE_NAME: "default-allow-ssh"
+      RUNNER_NAME: ${BASE_NAME}
+      RUNNER_USER: ${VM_ADMIN}
+      RUNNER_LABELS: "Azure"
+      REPO_URL: "https://github.com/${{github.GITHUB_REPOSITORY}}"
+      VM_EXT_COMMAND: "./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${{secrets.GH_TOKEN_REPO}} ${REPO_URL} ${RUNNER_LABELS}"
 
     steps:  
     - name: "Checkout GitHub repository"
@@ -38,27 +40,11 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-    - name: "Echo GitHub repository"
+    - name: "Create resource group"
       run:  |
-        echo "BLUE=$BLUE"
-        echo "NC=$NC"
-        echo "BASE_NAME=$BASE_NAME"
-        echo "RG_NAME=$RG_NAME"
-        echo "LOCATION=$LOCATION"
-        echo "ACR_NAME=$ACR_NAME"
-        echo "RUNNER_IMAGE_SOURCE=$RUNNER_IMAGE_SOURCE"
-        echo "RUNNER_IMAGE=$RUNNER_IMAGE"
-        echo "RUNNER_IMAGE_TAG=$RUNNER_IMAGE_TAG"
-        echo "VM_NAME=$VM_NAME"
-        echo "VM_IMAGE=$VM_IMAGE"
-        echo "VM_ADMIN=$VM_ADMIN"
-        echo "VM_EXT_NAME=$VM_EXT_NAME"
-        echo "VM_EXT_PUBLISHER=$VM_EXT_PUBLISHER"
-        echo "VM_EXT_FILE_URIS=$VM_EXT_FILE_URIS"
-        echo "NSG_NAME=$NSG_NAME"
-        echo "NSG_RULE_NAME=$NSG_RULE_NAME"
-        echo "RUNNER_NAME=$RUNNER_NAME"
-        echo "RUNNER_USER=$RUNNER_USER"
-        echo "RUNNER_LABELS=$RUNNER_LABELS"
-        echo "REPO_URL=$REPO_URL"
-        echo "VM_EXT_COMMAND=$VM_EXT_COMMAND"
+        echo -e "${GREEN}Creating resource group [${RG_NAME}] in location [${LOCATION}]...${NC}"
+        az group create --location ${LOCATION} --name ${RG_NAME}
+    - name: "Create resource group"
+      run:  |
+        echo -e "${GREEN}Creating resource group [${RG_NAME}] in location [${LOCATION}]...${NC}"
+        az group create --location ${LOCATION} --name ${RG_NAME}
