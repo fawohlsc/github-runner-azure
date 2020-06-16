@@ -28,7 +28,7 @@ jobs:
       env:
         RG_NAME: "github-runner-vm-${{github.run_number}}"
         RG_LOCATION: "WestEurope"
-        GH_TOKEN: ${{secrets.GH_TOKEN_REPO}}
+        GH_TOKEN: ${{secrets.GH_TOKEN_RUNNER}}
         GH_REPOSITORY: ${{github.repository}}
   
   test:
