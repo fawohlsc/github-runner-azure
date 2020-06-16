@@ -2,6 +2,9 @@ name: Deploy GitHub Runner to Azure
 
 on:
   repository_dispatch
+  
+env:
+  BASE_NAME: "github-runner-${{ github.run_number }}"	
 
 jobs:
   deploy:
@@ -15,8 +18,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: "Deploy GitHub Runner to Azure"
-      # Cannot use standard GitHub Token since it does not include full access to full repo scope.
-      # https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token#permissions-for-the-github_token
+      # Cannot use default GITHUB_TOKEN since it doesn't have full repo scope
       run:  |
         ./deploy.sh ${{ secrets.GH_TOKEN_REPO, $BASE_NAME }}
     - name: "Logout of Azure"
@@ -30,6 +32,3 @@ jobs:
     - name: "Test GitHub Runner on Azure"
       run:  |
         hostname -I | awk '{print "GitHub Runner Private IP:\t", $1}'
-  
-env:
-  BASE_NAME: "github-runner-${{ github.run_number }}"	
