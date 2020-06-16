@@ -19,6 +19,6 @@ AZURE_CREDENTIALS=$(az ad sp create-for-rbac \
                         --scopes ${SP_SCOPES} \
                         --sdk-auth)
 
-echo -e "${GREEN}Azure credentials:\n[${AZURE_CREDENTIALS}]..${NC}"
+echo -e "${GREEN}AZURE_CREDENTIALS:\n[${AZURE_CREDENTIALS}]..${NC}"
 
 echo -e "${BLUE}Azure credentials created successfully.${NC}"
