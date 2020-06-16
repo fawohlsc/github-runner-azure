@@ -1,10 +1,5 @@
  
 #!/bin/bash
-# TODO: Run within GitHub Actions
-# TODO: Validate GitHub Runner
-# TODO: Base name should be a parameter
-# TODO: az network nsg rule delete -g ${RG_NAME} --nsg-name ${NSG_NAME} -n ${NSG_RULE_NAME}
-# TODO: Multiple pipelines: Deploy Infrastructure, Install Runner
 
 set -e -u # Exit script on error and treat unset variables as an error
 

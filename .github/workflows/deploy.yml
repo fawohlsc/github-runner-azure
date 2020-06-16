@@ -17,14 +17,20 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
-    - name: "Create resource group"
-      run:  |
-        az group create --location ${{env.LOCATION}} --name ${{env.RG_NAME}}-${{github.run_number}}-end}
+    - name: Azure CLI script file
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          chmod +x $GITHUB_WORKSPACE/foo.sh
+          $GITHUB_WORKSPACE/foo.sh
+      #- name: "Create resource group"
+      #  run:  |
+      #    az group create --location ${{env.LOCATION}} --name ${{env.RG_NAME}}
 
     env:
       RG_NAME: "github-runner-${{github.run_number}}"
       LOCATION: "WestEurope"
-      ACR_NAME: "${RG_NAME}ACR"
+      ACR_NAME: "${{env.RG_NAME}}ACR"
       RUNNER_IMAGE_SOURCE: "docker.io/myoung34/github-runner:latest"
       RUNNER_IMAGE: "github-runner"
       RUNNER_IMAGE_TAG: ${{github.GITHUB_RUN_NUMBER}}
