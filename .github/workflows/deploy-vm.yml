@@ -1,4 +1,4 @@
-name: Deploy as Docker container
+name: Deploy on VM
 
 on:
 #  repository_dispatch
@@ -21,10 +21,10 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          chmod +x $GITHUB_WORKSPACE/docker/deploy.sh
-          $GITHUB_WORKSPACE/docker/deploy.sh
+          chmod +x $GITHUB_WORKSPACE/vm/deploy.sh
+          $GITHUB_WORKSPACE/vm/deploy.sh
       env:
-        RG_NAME: "github-runner-docker-${{github.run_number}}"
+        RG_NAME: "github-runner-vm-${{github.run_number}}"
         RG_LOCATION: "WestEurope"
         GH_TOKEN: ${{secrets.GH_TOKEN_REPO}}
         GH_REPOSITORY: ${{github.repository}}
