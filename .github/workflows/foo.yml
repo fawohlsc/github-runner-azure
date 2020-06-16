@@ -11,6 +11,3 @@ jobs:
       - name: "Test GitHub Runner on Azure"
       run:  |
         echo "Something..."
-  
-#env:
-#  BASE_NAME: "github-runner-${{ github.run_number }}"	
