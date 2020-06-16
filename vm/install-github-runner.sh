@@ -15,7 +15,7 @@ RUNNER_PACKAGE="./actions-runner-linux-x64-2.263.0.tar.gz"
 
 RUNNER_API_ACCEPT_HEADER="Accept: application/vnd.github.v3+json"
 RUNNER_API_AUTH_HEADER="Authorization: token ${GH_TOKEN}"
-RUNNER_API_URL="https://api.github.com/repos/${GH_REPOSITORY}/actions/runners/registration-token"
+RUNNER_API_URL="https://api.github.com/repos/fawohlsc/github-runner-azure/actions/runners/registration-token"
 
 RUNNER_URL="https://github.com/${GH_REPOSITORY}"
 
@@ -33,14 +33,13 @@ apt-get install -y jq
 
 echo -e "${GREEN}Downloading GitHub Runner package...${NC}"
 mkdir actions-runner && cd actions-runner
-curl -O -L ${RUNNER_PACKAGE_URL}
+curl -O -L "${RUNNER_PACKAGE_URL}"
 
 echo -e "${GREEN}Extracting GitHub Runner package...${NC}"
-tar xzf ${RUNNER_PACKAGE}
+tar xzf "${RUNNER_PACKAGE}"
 
 echo -e "${GREEN}Retrieving GitHub Runner token...${NC}"
 # TODO Fix CURL command
-echo "RUNNER_API_URL: ${RUNNER_API_URL}"
 RUNNER_TOKEN="$(curl \
   -XPOST \
   -fsSL \
@@ -52,9 +51,9 @@ RUNNER_TOKEN="$(curl \
 echo -e "${GREEN}Configure the GitHub Runner...${NC}"
 chmod +x ./config.sh
 ./config.sh \
-  --url ${RUNNER_URL} \
-  --token ${RUNNER_TOKEN} \
-  --name ${RUNNER_NAME} \
+  --url "${RUNNER_URL}" \
+  --token "${RUNNER_TOKEN}" \
+  --name "${RUNNER_NAME}" \
   --labels "${RUNNER_LABELS}" \
   --unattended \
   --replace
