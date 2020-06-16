@@ -27,3 +27,4 @@ jobs:
     env:
       RG_NAME: "github-runner-${{github.run_number}}"
       RG_LOCATION: "WestEurope"
+      GH_TOKEN_REPO: ${{secrets.GH_TOKEN_REPO}}
