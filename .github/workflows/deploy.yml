@@ -1,7 +1,10 @@
 name: Deploy GitHub Runner to Azure
 
 on:
-  repository_dispatch
+#  repository_dispatch
+ push:
+    branches:
+      - master
 
 jobs:
   deploy:
