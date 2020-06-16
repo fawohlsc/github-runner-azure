@@ -1,4 +1,4 @@
-name: Deploy GitHub Runner to Azure
+name: Foo
 
 on:
   repository_dispatch
