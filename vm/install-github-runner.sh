@@ -3,7 +3,7 @@
 set -e -u # Exit script on error and treat unset variables as an error
 
 GH_TOKEN=${1}
-GH_REPOSITORY={2}
+GH_REPOSITORY=${2}
 RUNNER_PACKAGE_VERSION=${3}
 RUNNER_NAME=${4}
 RUNNER_LABELS=${5}
