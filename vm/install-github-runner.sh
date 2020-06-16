@@ -39,6 +39,7 @@ echo -e "${GREEN}Extracting GitHub Runner package...${NC}"
 tar xzf ${RUNNER_PACKAGE}
 
 echo -e "${GREEN}Retrieving GitHub Runner token...${NC}"
+# TODO Fix CURL command
 RUNNER_TOKEN="$(curl \
   -XPOST \
   -fsSL \
@@ -56,6 +57,7 @@ chmod +x ./config.sh
   --labels "${RUNNER_LABELS}" \
   --unattended \
   --replace
+unset RUNNER_TOKEN
 
 echo -e "${GREEN}Start the GitHub Runner as service...${NC}"
 chmod +x ./svc.sh
