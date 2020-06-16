@@ -3,22 +3,26 @@
 
 set -e -u # Exit script on error and treat unset variables as an error
 
-BLUE="\033[0;34m"
-GREEN="\033[0;32m"
-NC="\033[0m" # No Color
 VM_NAME="${RG_NAME}VM"
 VM_IMAGE="UbuntuLTS"
 VM_ADMIN=${RG_NAME}
+
 NSG_NAME="${RG_NAME}VMNSG"
 NSG_RULE_NAME="default-allow-ssh"
-VM_EXT_NAME="customScript"
-VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
-VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${GH_REPOSITORY}/master/vm/install-github-runner.sh'"
+
 RUNNER_PACKAGE_VERSION="2.263.0"
 RUNNER_NAME=${RG_NAME}
 RUNNER_LABELS="Azure,VM"
+
+VM_EXT_NAME="customScript"
+VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
+VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${GH_REPOSITORY}/master/vm/install-github-runner.sh'"
 # TODO: Do not pass GH_TOKEN via bash
 VM_EXT_COMMAND="./install-github-runner.sh ${GH_TOKEN} ${GH_REPOSITORY} ${RUNNER_PACKAGE_VERSION} ${RUNNER_NAME} ${RUNNER_LABELS}"
+
+BLUE="\033[0;34m"
+GREEN="\033[0;32m"
+NC="\033[0m" # No Color
 
 echo -e "${BLUE}Executing deployment...${NC}"
 

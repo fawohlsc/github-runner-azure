@@ -32,7 +32,7 @@ jobs:
         GH_REPOSITORY: ${{github.repository}}
   
   test:
-    runs-on: [self-hosted, Linux, Azure]
+    runs-on: [self-hosted, Linux, Azure, VM]
     needs: deploy
 
     steps: 

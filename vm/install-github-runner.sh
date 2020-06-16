@@ -9,12 +9,15 @@ RUNNER_NAME=${4}
 RUNNER_LABELS=${5}
 
 export RUNNER_ALLOW_RUNASROOT=1 # TODO: Do not run as root
+
 RUNNER_PACKAGE_URL="https://github.com/actions/runner/releases/download/v${RUNNER_PACKAGE_VERSION}/actions-runner-linux-x64-${RUNNER_PACKAGE_VERSION}.tar.gz"
 RUNNER_PACKAGE="./actions-runner-linux-x64-2.263.0.tar.gz"
 
 RUNNER_API_ACCEPT_HEADER="Accept: application/vnd.github.v3+json"
 RUNNER_API_AUTH_HEADER="Authorization: token ${GH_TOKEN}"
 RUNNER_API_URL="https://api.github.com/repos/${GH_REPOSITORY}/actions/runners/registration-token"
+
+RUNNER_URL="https://github.com/${GH_REPOSITORY}"
 
 BLUE="\033[0;34m"
 GREEN="\033[0;32m"
@@ -47,7 +50,7 @@ RUNNER_TOKEN="$(curl \
 echo -e "${GREEN}Configure the GitHub Runner...${NC}"
 chmod +x ./config.sh
 ./config.sh \
-  --url ${RUNNER_REPO_URL} \
+  --url ${RUNNER_URL} \
   --token ${RUNNER_TOKEN} \
   --name ${RUNNER_NAME} \
   --labels "${RUNNER_LABELS}" \
