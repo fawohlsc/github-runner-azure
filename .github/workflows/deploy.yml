@@ -19,10 +19,10 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: "Create resource group"
       run:  |
-        az group create --location ${LOCATION} --name ${RG_NAME}-${{github.GITHUB_RUN_NUMBER}}
+        az group create --location ${{env.LOCATION}} --name ${RG_NAME}-${{github.run_number}-end}
 
     env:
-      RG_NAME: "github-runner-${{github.GITHUB_RUN_NUMBER}}"
+      RG_NAME: "github-runner-${{github.run_number}}"
       LOCATION: "WestEurope"
       ACR_NAME: "${RG_NAME}ACR"
       RUNNER_IMAGE_SOURCE: "docker.io/myoung34/github-runner:latest"
