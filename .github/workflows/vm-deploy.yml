@@ -1,4 +1,4 @@
-name: Deploy on VM
+name: Deploy as VM
 
 on:
 #  repository_dispatch
