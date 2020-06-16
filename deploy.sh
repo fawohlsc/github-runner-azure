@@ -6,7 +6,8 @@ set -e -u # Exit script on error and treat unset variables as an error
 BLUE="\033[0;34m"
 GREEN="\033[0;32m"
 NC="\033[0m" # No Color
-ACR_NAME="${RG_NAME}ACR"
+RANDOM_STRING=$(head /dev/urandom | tr -dc a-z0-9 | head -c 13)
+ACR_NAME=${RANDOM_STRING}
 ACR_SKU="Basic"
 ACR_URL="${ACR_NAME}.azurecr.io"
 VM_NAME="${RG_NAME}VM"
