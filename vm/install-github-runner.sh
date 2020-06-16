@@ -4,7 +4,7 @@ set -e -u # Exit script on error and treat unset variables as an error
 
 RUNNER_PACKAGE_VERSION="2.263.0"
 RUNNER_NAME="github-runner-vm-2"
-GITHUB_TOKEN="AJ3UTYFRJYTSIWGN5VLFDNK65D2OE"
+GITHUB_TOKEN="AJ3UTYH3O6FERO6XM4LXGEK65D3DW"
 REPO_URL="https://github.com/fawohlsc/github-runner-azure "
 LABELS="Azure,VM"
 
@@ -24,7 +24,7 @@ curl -O -L ${RUNNER_PACKAGE_URL}
 echo -e "${GREEN}Extracting GitHub Runner package...${NC}"
 tar xzf ${RUNNER_PACKAGE}
 
-echo -e "${GREEN}Configure the GitHub Runner ...${NC}"
+echo -e "${GREEN}Configure the GitHub Runner...${NC}"
 chmod +x ./config.sh
 ./config.sh \
   --url ${REPO_URL} \
@@ -34,9 +34,10 @@ chmod +x ./config.sh
   --unattended \
   --replace
 
-#TODO: Install GitHub runner as service to cover VM reboots
-echo -e "${GREEN}Run the GitHub Runner ...${NC}"
-chmod +x ./run.sh
-./run.sh
+echo -e "${GREEN}Start the GitHub Runner as service...${NC}"
+chmod +x ./svc.sh
+./svc.sh install
+./svc.sh start
+./svc.sh status
 
 echo -e "${BLUE}GitHub Runner installed successfully.${NC}"
