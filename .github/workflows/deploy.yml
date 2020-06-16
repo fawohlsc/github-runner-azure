@@ -4,28 +4,28 @@ on:
   repository_dispatch
   
 env:
-  BLUE="\033[0;34m"
-  NC="\033[0m" # No Color
+  BLUE: "\033[0;34m"
+  NC: "\033[0m" # No Color
   BASE_NAME: "github-runner-${{github.GITHUB_RUN_NUMBER}}"	
-  RG_NAME=${BASE_NAME}
-  LOCATION="WestEurope"
-  ACR_NAME=${BASE_NAME}
-  RUNNER_IMAGE_SOURCE="docker.io/myoung34/github-runner:latest"
-  RUNNER_IMAGE="github-runner"
-  RUNNER_IMAGE_TAG=${{github.GITHUB_RUN_NUMBER}}
-  VM_NAME="${BASE_NAME}"
-  VM_IMAGE="UbuntuLTS"
-  VM_ADMIN=${BASE_NAME}
-  VM_EXT_NAME="customScript"
-  VM_EXT_PUBLISHER="Microsoft.Azure.Extensions"
-  VM_EXT_FILE_URIS="'https://raw.githubusercontent.com/${{github.GITHUB_REPOSITORY}}/master/install-docker.sh','https://raw.githubusercontent.com/${{github.GITHUB_REPOSITORY}}/master/install-github-runner.sh'"
-  NSG_NAME="${BASE_NAME}NSG"
-  NSG_RULE_NAME="default-allow-ssh"
-  RUNNER_NAME=${BASE_NAME}
-  RUNNER_USER=${VM_ADMIN}
-  RUNNER_LABELS="Azure"
-  REPO_URL="https://github.com/${{github.GITHUB_REPOSITORY}}"
-  VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${{secrets.GH_TOKEN_REPO}} ${REPO_URL} ${RUNNER_LABELS}"
+  RG_NAME: ${BASE_NAME}
+  LOCATION: "WestEurope"
+  ACR_NAME: ${BASE_NAME}
+  RUNNER_IMAGE_SOURCE: "docker.io/myoung34/github-runner:latest"
+  RUNNER_IMAGE: "github-runner"
+  RUNNER_IMAGE_TAG: ${{github.GITHUB_RUN_NUMBER}}
+  VM_NAME: "${BASE_NAME}"
+  VM_IMAGE: "UbuntuLTS"
+  VM_ADMIN: ${BASE_NAME}
+  VM_EXT_NAME: "customScript"
+  VM_EXT_PUBLISHER: "Microsoft.Azure.Extensions"
+  VM_EXT_FILE_URIS: "'https://raw.githubusercontent.com/${{github.GITHUB_REPOSITORY}}/master/install-docker.sh','https://raw.githubusercontent.com/${{github.GITHUB_REPOSITORY}}/master/install-github-runner.sh'"
+  NSG_NAME: "${BASE_NAME}NSG"
+  NSG_RULE_NAME: "default-allow-ssh"
+  RUNNER_NAME: ${BASE_NAME}
+  RUNNER_USER: ${VM_ADMIN}
+  RUNNER_LABELS: "Azure"
+  REPO_URL: "https://github.com/${{github.GITHUB_REPOSITORY}}"
+  VM_EXT_COMMAND: "./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${{secrets.GH_TOKEN_REPO}} ${REPO_URL} ${RUNNER_LABELS}"
 
 jobs:
   deploy:
