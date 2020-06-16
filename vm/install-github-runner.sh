@@ -2,11 +2,11 @@
 
 set -e -u # Exit script on error and treat unset variables as an error
 
-RUNNER_PACKAGE_VERSION="2.263.0"
-RUNNER_NAME="github-runner-vm-2"
-GITHUB_TOKEN="AJ3UTYH3O6FERO6XM4LXGEK65D3DW"
-REPO_URL="https://github.com/fawohlsc/github-runner-azure "
-LABELS="Azure,VM"
+GH_TOKEN=${1}
+RUNNER_PACKAGE_VERSION=${2}
+RUNNER_NAME=${3}
+RUNNER_REPO_URL=${4}
+RUNNER_LABELS=${5}
 
 export RUNNER_ALLOW_RUNASROOT=1 # TODO: Do not run as root
 RUNNER_PACKAGE_URL="https://github.com/actions/runner/releases/download/v${RUNNER_PACKAGE_VERSION}/actions-runner-linux-x64-${RUNNER_PACKAGE_VERSION}.tar.gz"
@@ -27,10 +27,10 @@ tar xzf ${RUNNER_PACKAGE}
 echo -e "${GREEN}Configure the GitHub Runner...${NC}"
 chmod +x ./config.sh
 ./config.sh \
-  --url ${REPO_URL} \
-  --token ${GITHUB_TOKEN} \
+  --url ${RUNNER_REPO_URL} \
+  --token ${GH_TOKEN} \
   --name ${RUNNER_NAME} \
-  --labels "${LABELS}" \
+  --labels "${RUNNER_LABELS}" \
   --unattended \
   --replace
 

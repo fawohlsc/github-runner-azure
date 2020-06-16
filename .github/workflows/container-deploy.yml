@@ -26,7 +26,7 @@ jobs:
           chmod +x $GITHUB_WORKSPACE/container/deploy.sh
           $GITHUB_WORKSPACE/container/deploy.sh
       env:
-        RG_NAME: "github-runner-docker-${{github.run_number}}"
+        RG_NAME: "github-runner-container-${{github.run_number}}"
         RG_LOCATION: "WestEurope"
         GH_TOKEN: ${{secrets.GH_TOKEN_REPO}}
         GH_REPOSITORY: ${{github.repository}}
