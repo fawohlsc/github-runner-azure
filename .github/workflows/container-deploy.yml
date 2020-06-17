@@ -1,12 +1,8 @@
 name: Deploy as Container
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - '.github/workflows/container-deploy.yml'
-      - 'container/*'
+  repository_dispatch:
+    types: container-deploy        
 
 jobs:
   deploy:
@@ -26,8 +22,8 @@ jobs:
           chmod +x $GITHUB_WORKSPACE/container/deploy.sh
           $GITHUB_WORKSPACE/container/deploy.sh
       env:
-        RG_NAME: "github-runner-container-${{github.run_number}}"
-        RG_LOCATION: "WestEurope"
+        RG_NAME: "${{github.event.client_payload.rg_name}}"
+        RG_LOCATION: "${{github.event.client_payload.location}}"
         GH_TOKEN: ${{secrets.GH_TOKEN_REPO}}
         GH_REPOSITORY: ${{github.repository}}
   

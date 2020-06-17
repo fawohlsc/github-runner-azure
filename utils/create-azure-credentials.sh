@@ -10,7 +10,7 @@ SP_SCOPES="/subscriptions/${SUBSCRIPTION_ID}"
 
 set -e -u # Exit script on error and treat unset variables as an error
 
-echo -e "${BLUE}Creating Azure credentials.${NC}"
+echo -e "${BLUE}Creating Azure credentials...${NC}"
 
 echo -e "${GREEN}Creating service principal with contributor access to subscription [${SUBSCRIPTION_ID}]...${NC}"
 AZURE_CREDENTIALS=$(az ad sp create-for-rbac \
