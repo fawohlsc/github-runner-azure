@@ -22,8 +22,8 @@ jobs:
           chmod +x $GITHUB_WORKSPACE/vm/deploy.sh
           $GITHUB_WORKSPACE/vm/deploy.sh
       env:
-        RG_NAME: "github-runner-vm-${{github.run_number}}"
-        RG_LOCATION: "WestEurope"
+        RG_NAME: "${{github.event.client_payload.rg_name}}"
+        RG_LOCATION: "${{github.event.client_payload.location}}"
         GH_TOKEN: ${{secrets.GH_TOKEN_RUNNER}}
         GH_REPOSITORY: ${{github.repository}}
   
