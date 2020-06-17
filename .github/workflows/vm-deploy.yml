@@ -1,12 +1,8 @@
 name: Deploy as VM
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - '.github/workflows/vm-deploy.yml'
-      - 'vm/*'
+  repository_dispatch:
+    types: container-deploy   
 
 jobs:
   deploy:
