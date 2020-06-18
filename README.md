@@ -1,1 +1,1 @@
-# github-runner-azure
+# Deploy GitHub self-hosted runners to Azure
