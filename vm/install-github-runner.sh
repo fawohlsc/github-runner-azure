@@ -8,7 +8,7 @@ RUNNER_PACKAGE_VERSION=${3}
 RUNNER_NAME=${4}
 RUNNER_LABELS=${5}
 
-export RUNNER_ALLOW_RUNASROOT=1 # TODO: Do not run as root
+export RUNNER_ALLOW_RUNASROOT=1 # TODO: #6 #5 Do not run as root
 
 RUNNER_PACKAGE_URL="https://github.com/actions/runner/releases/download/v${RUNNER_PACKAGE_VERSION}/actions-runner-linux-x64-${RUNNER_PACKAGE_VERSION}.tar.gz"
 RUNNER_PACKAGE="./actions-runner-linux-x64-2.263.0.tar.gz"
@@ -39,7 +39,6 @@ echo -e "${GREEN}Extracting GitHub Runner package...${NC}"
 tar xzf "${RUNNER_PACKAGE}"
 
 echo -e "${GREEN}Retrieving GitHub Runner token...${NC}"
-# TODO Fix CURL command
 RUNNER_TOKEN="$(curl \
   -XPOST \
   -fsSL \

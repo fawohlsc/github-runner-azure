@@ -8,8 +8,6 @@ NC="\033[0m" # No Color
 
 echo -e "${BLUE}Installing docker...${NC}"
 
-# TODO: Uninstalling previous versions of docker engine and containerd if any
-
 echo -e "${GREEN}Updating the apt package index...${NC}"
 apt-get update
 

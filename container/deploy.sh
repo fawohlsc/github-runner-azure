@@ -20,12 +20,12 @@ NSG_NAME="${RG_NAME}VMNSG"
 NSG_RULE_NAME="default-allow-ssh"
 RUNNER_IMAGE_SOURCE="docker.io/myoung34/github-runner:latest"
 RUNNER_IMAGE="github-runner"
-RUNNER_IMAGE_TAG="latest" # TODO: Proper versioning of container image
+RUNNER_IMAGE_TAG="latest" # TODO: #2 Proper versioning of container image
 RUNNER_NAME=${RG_NAME}
-RUNNER_USER=${VM_ADMIN} # TODO: Do not run GitHub Runner under VM Admin
+RUNNER_USER=${VM_ADMIN} # TODO: #3 Do not run GitHub Runner under VM Admin
 RUNNER_LABELS="Azure,Container"
 REPO_URL="https://github.com/${GH_REPOSITORY}"
-# TODO: Do not pass GH_TOKEN via bash
+# TODO: #4 Do not pass GH_TOKEN via bash
 VM_EXT_COMMAND="./install-docker.sh && ./install-github-runner.sh ${ACR_NAME} ${RUNNER_IMAGE} ${RUNNER_IMAGE_TAG} ${RUNNER_NAME} ${RUNNER_USER} ${GH_TOKEN} ${REPO_URL} ${RUNNER_LABELS}"
 
 echo -e "${BLUE}Executing deployment...${NC}"
