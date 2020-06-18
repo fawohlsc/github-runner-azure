@@ -18,5 +18,7 @@
 ### Container
 ![alt text](docs/container.png "Automatically setup GitHub self-hosted runner as containers") 
 
+**Remark:** [Azure Kubernetes Service](https://github.com/myoung34/docker-github-actions-runner#kubernetes) is a better option for hosting your containers.
+
 ## Credits
 Kudos to [Marcus Young](https://github.com/myoung34/docker-github-actions-runner) for his excellent work around packaging GitHub self-hosted runners as containers.
