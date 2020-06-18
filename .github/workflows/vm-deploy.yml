@@ -24,7 +24,8 @@ jobs:
       env:
         RG_NAME: "${{github.event.client_payload.rg_name}}"
         RG_LOCATION: "${{github.event.client_payload.location}}"
-        GH_TOKEN: ${{secrets.GH_TOKEN_RUNNER}}
+        #GH_TOKEN: ${{secrets.GH_TOKEN_RUNNER}}
+        GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         GH_REPOSITORY: ${{github.repository}}
   
   test:
