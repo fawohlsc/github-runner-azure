@@ -7,14 +7,10 @@ BLUE="\033[0;34m"
 GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 
-SP_NAME="gitHub-runner-azure"
-SP_ROLE="owner"
-SP_SCOPES="/subscriptions/${SUBSCRIPTION_ID}"
-
 [ -z ${GH_TOKEN} ] && echo "Environment variable GH_TOKEN not set." && exit 1
 set -e -u # Exit script on error and treat unset variables as an error
 
-echo -e "${BLUE}Triggering container deploy...${NC}"
+echo -e "${BLUE}Triggering VM deploy...${NC}"
 
 curl \
     -H "Authorization: token ${GH_TOKEN}" \
@@ -22,4 +18,4 @@ curl \
     "https://api.github.com/repos/fawohlsc/github-runner-azure/dispatches" \
     -d "{\"event_type\": \"vm-deploy\", \"client_payload\": {\"rg_name\": \"${RG_NAME}\", \"location\": \"${LOCATION}\"}"
 
-echo -e "${BLUE}Container deploy triggered successfully.${NC}"
+echo -e "${BLUE}VM deploy triggered successfully.${NC}"

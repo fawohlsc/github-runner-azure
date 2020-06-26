@@ -10,11 +10,15 @@
   - container - _Scripts for deploying GitHub self-hosted runner as container_
   - utils - _Utilities to cleanup GitHub self-hosted runners, trigger the GitHub Actions workflows, ..._
 
-## Host runner on a VM
+## Architecture
+
+### VM
 ![alt text](docs/vm.png "Automatically setup GitHub self-hosted runner on a VM") 
 
-## Host runner as Container
+### Container
 ![alt text](docs/container.png "Automatically setup GitHub self-hosted runner as containers") 
+
+**Remark:** _[Azure Kubernetes Service](https://github.com/myoung34/docker-github-actions-runner#kubernetes) is a better option for hosting your containers._
 
 ## Credits
 Kudos to [Marcus Young](https://github.com/myoung34/docker-github-actions-runner) for his excellent work around packaging GitHub self-hosted runners as containers.
