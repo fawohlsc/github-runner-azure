@@ -36,6 +36,10 @@ curl -O -L "${RUNNER_PACKAGE_URL}"
 echo -e "${GREEN}Extracting GitHub Runner package...${NC}"
 tar xzf "${RUNNER_PACKAGE}"
 
+echo -e "${GREEN}Installing GitHub Runner dependencies...${NC}"
+chmod +x ./bin/installdependencies.sh
+./bin/installdependencies.sh
+
 echo -e "${GREEN}Retrieving GitHub Runner token...${NC}"
 RUNNER_TOKEN="$(curl \
   -XPOST \
