@@ -22,6 +22,7 @@ RUNNER_URL="https://github.com/${GH_REPOSITORY}"
 BLUE="\033[0;34m"
 GREEN="\033[0;32m"
 NC="\033[0m" # No Color
+RED="\033[0;31m"
 
 echo -e "${BLUE}Installing GitHub Runner...${NC}"
 
@@ -48,6 +49,7 @@ RUNNER_TOKEN="$(curl \
   -H "${RUNNER_API_AUTH_HEADER}" \
   "${RUNNER_API_URL}" \
   | jq -r '.token')"
+[ -z "${RUNNER_TOKEN}" ] && echo "${RED}Failed to retrieve GitHub Runner token...${NC}" && exit 1
 
 echo -e "${GREEN}Configure the GitHub Runner...${NC}"
 chmod +x ./config.sh
