@@ -3,10 +3,19 @@
 set -e -u # Exit script on error and treat unset variables as an error
 
 GH_TOKEN=${1}
+[ -z "${GH_TOKEN}" ] && echo "${RED}Parameter GH_TOKEN cannot be empty. Exiting...${NC}" && exit 1
+
 GH_REPOSITORY=${2}
+[ -z "${GH_REPOSITORY}" ] && echo "${RED}Parameter GH_REPOSITORY cannot be empty. Exiting...${NC}" && exit 1
+
 RUNNER_PACKAGE_VERSION=${3}
+[ -z "${RUNNER_PACKAGE_VERSION}" ] && echo "${RED}Parameter RUNNER_PACKAGE_VERSION cannot be empty. Exiting...${NC}" && exit 1
+
 RUNNER_NAME=${4}
+[ -z "${RUNNER_NAME}" ] && echo "${RED}Parameter RUNNER_NAME cannot be empty. Exiting...${NC}" && exit 1
+
 RUNNER_LABELS=${5}
+[ -z "${RUNNER_LABELS}" ] && echo "${RED}Parameter RUNNER_LABELS cannot be empty. Exiting...${NC}" && exit 1
 
 export RUNNER_ALLOW_RUNASROOT=1 # TODO: #6 #5 Do not run as root
 
@@ -19,10 +28,10 @@ RUNNER_API_URL="https://api.github.com/repos/${GH_REPOSITORY}/actions/runners/re
 
 RUNNER_URL="https://github.com/${GH_REPOSITORY}"
 
-BLUE="\033[0;34m"
-GREEN="\033[0;32m"
 NC="\033[0m" # No Color
 RED="\033[0;31m"
+GREEN="\033[0;32m"
+BLUE="\033[0;34m"
 
 echo -e "${BLUE}Installing GitHub Runner...${NC}"
 
@@ -49,7 +58,7 @@ RUNNER_TOKEN="$(curl \
   -H "${RUNNER_API_AUTH_HEADER}" \
   "${RUNNER_API_URL}" \
   | jq -r '.token')"
-[ -z "${RUNNER_TOKEN}" ] && echo "${RED}Failed to retrieve GitHub Runner token...${NC}" && exit 1
+[ -z "${RUNNER_TOKEN}" ] && echo "${RED}Failed to retrieve GitHub Runner token. Exiting...${NC}" && exit 1
 
 echo -e "${GREEN}Configure the GitHub Runner...${NC}"
 chmod +x ./config.sh
